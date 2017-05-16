@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +25,7 @@ SECRET_KEY = 'r-+30s23d$z4gu7*3&s6rr@baol)hpux+tv=8n(9*^$xwj)*d2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.1', '202.118.228.108']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'login'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -100,3 +101,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# 第三方类库目录
+sys.path.insert(0, os.path.join(BASE_DIR, 'libs'))
+
+# session设置 会话cookie可以在用户浏览器中保持有效期。True：关闭浏览器，则Cookie失效。
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+# 30min
+SESSION_COOKIE_AGE = 60 * 30
+
+CORS_ORIGIN_ALLOW_ALL = True
+
