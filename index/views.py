@@ -4,8 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from common.Auth import Auth, verifyPassword
 from index.forms.DoLoginForm import DoLoginForm
-from libs.rModels.User import userInit
-from libs.rModels.Goods import goodsInit
+from libs.rModels.User import *
+from libs.rModels.Goods import *
 
 
 def dbInit(request):
@@ -34,4 +34,13 @@ def doLogin(request):
 		return JsonResponse(response)
 	response['is_success'] = True
 	response['message'] = '登录成功'
+	return JsonResponse(response)
+
+def goodsList(request):
+	response = {}
+	cursor = r.db('warehouse').table('goods').run()
+	goodsList = list(cursor)
+	print(goodsList)
+	response['is_success'] = True
+	response['goodsList'] = goodsList
 	return JsonResponse(response)
