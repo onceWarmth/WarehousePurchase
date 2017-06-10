@@ -2,13 +2,15 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from common.Auth import Auth
+from common.Auth import Auth, verifyPassword
 from index.forms.DoLoginForm import DoLoginForm
 from libs.rModels.User import userInit
+from libs.rModels.Goods import goodsInit
 
 
 def dbInit(request):
 	userInit()
+	goodsInit()
 	return HttpResponse("数据库初始化完成")
 
 @csrf_exempt
@@ -25,8 +27,7 @@ def doLogin(request):
 		return JsonResponse(response)
 	username = doLoginForm.cleaned_data["username"]
 	password = doLoginForm.cleaned_data["password"]
-	auth = Auth(request)
-	res = auth.login(username, password)
+	res = verifyPassword(password, username)
 	if not res:
 		response['is_success'] = False
 		response['message'] = '用户名和密码错误'

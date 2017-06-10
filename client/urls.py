@@ -3,4 +3,10 @@ from client.views import *
 
 urlpatterns = {
 	url(r'^doLogin/$', doLogin),
+	url(r'^addGoods/$', addGoods),
+	url(r'^deleteGoods/$', deleteGoods),
+	url(r'^goodsList/$', goodsList),
+	url(r'^changeGoodsInfo/$', changeGoodsInfo),
+	url(r'^purchaseGoods/$', purchaseGoods),
+	url(r'sellGoods/$', sellGoods),
 }
