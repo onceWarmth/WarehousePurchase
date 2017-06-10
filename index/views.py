@@ -35,6 +35,3 @@ def doLogin(request):
 	response['is_success'] = True
 	response['message'] = '登录成功'
 	return JsonResponse(response)
-
-
-

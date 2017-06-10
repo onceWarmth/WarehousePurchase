@@ -168,7 +168,7 @@ def purchaseGoods(request):
 	goodsID = purchaseGoodsForm.cleaned_data['goodsID']
 	num = purchaseGoodsForm.cleaned_data['num']
 
-	result = r.table('goods').get(goodsID).do(
+	result, purchasePrice = r.table('goods').get(goodsID).do(
 		lambda goodsObject:
 		(
 			r.branch(
@@ -176,6 +176,11 @@ def purchaseGoods(request):
 				r.table('goods').get(goodsID).update({
 					'amount': goodsObject['amount'] + num
 				}),
+				None
+			),
+			r.branch(
+				goodsObject,
+				goodsObject['purchasePrice'],
 				None
 			)
 		)
@@ -195,8 +200,10 @@ def purchaseGoods(request):
 		response['is_success'] = False
 		response['message'] = '进货失败'
 		return JsonResponse(response)
+	purchasePriceSum = purchasePrice * num
 	response['is_success'] = True
 	response['message'] = '进货成功'
+	response['purchasePriceSum'] = purchasePriceSum
 	return JsonResponse(response)
 
 @csrf_exempt
@@ -215,7 +222,7 @@ def sellGoods(request):
 	goodsID = sellGoodsForm.cleaned_data['goodsID']
 	num = sellGoodsForm.cleaned_data['num']
 
-	result = r.table('goods').get(goodsID).do(
+	result, price = r.table('goods').get(goodsID).do(
 		lambda goodsObject:
 		(
 			r.branch(
@@ -231,6 +238,11 @@ def sellGoods(request):
 						1
 					)
 				),
+				None
+			),
+			r.branch(
+				goodsObject,
+				goodsObject['price'],
 				None
 			)
 		)
@@ -255,6 +267,8 @@ def sellGoods(request):
 		response['is_success'] = False
 		response['message'] = '售货失败'
 		return JsonResponse(response)
+	priceSum = price * num
 	response['is_success'] = True
 	response['message'] = '售货成功'
+	response['priceSum'] = priceSum
 	return JsonResponse(response)
