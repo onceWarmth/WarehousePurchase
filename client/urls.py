@@ -8,5 +8,6 @@ urlpatterns = {
 	url(r'^goodsList/$', goodsList),
 	url(r'^changeGoodsInfo/$', changeGoodsInfo),
 	url(r'^purchaseGoods/$', purchaseGoods),
-	url(r'sellGoods/$', sellGoods),
+	url(r'^sellGoods/$', sellGoods),
+	url(r'^records/$', records),
 }

@@ -58,6 +58,7 @@ if (not used):
 					 "salt": [55, 120, 86, 102, 53, 99]
 				},
 				"type": "user",
+				"shoppingCast": []
 				}
 
 		# TODO  封装其他方法
@@ -80,8 +81,9 @@ if (not used):
 						164, 67, 81],
 					 "salt": [55, 120, 86, 102, 53, 99]
 				},
-				"type": "user"
-				}
+				"type": "user",
+				"shoppingCast": [],
+			}
 		admin = {
 				"id": "admin",
 				"password": {
@@ -94,7 +96,8 @@ if (not used):
 					 "salt": [55, 120, 86, 102, 53, 99]
 				},
 				"type": "admin",
-				}
+				"shoppingCast": [],
+			}
 		salesperson = {
 				"id": "salesperson",
 				"password": {
@@ -107,6 +110,7 @@ if (not used):
 					 "salt": [55, 120, 86, 102, 53, 99]
 				},
 				"type": "saleperson",
+				"shoppingCast": [],
 				}
 		remodel.utils.create_tables()
 		User(**user).save()

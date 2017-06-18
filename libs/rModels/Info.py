@@ -15,21 +15,21 @@ from remodel.object_handler import ObjectHandler, ObjectSet
 # 通过判断model是否被注册判断文件是否被引用
 used = False
 try:
-	name = model_registry.get("Goods")
+	name = model_registry.get("Info")
 	if name:
 		used = True
 except KeyError:
 	used = False
 
 if (not used):
-	class Goods(Model):
+	class Info(Model):
 		pass
 		"""
 			声明一个remodel类
 		"""
 
 
-	class GoodsObjectHandler(ObjectHandler):
+	class InfoObjectHandler(ObjectHandler):
 		pass
 
 	def uid():
@@ -41,39 +41,36 @@ if (not used):
 		return uniqueNum
 
 
-	class DefaultGoods():
+	class DefaultInfo():
 		"""docstring for DefauleGood"""
 
 		# TODO 根据季总的业务逻辑设置初始化变量
 		def __init__(self):
-			self._goods = {
-				"id": "0001",
-				"name": "Good1",
-				"amount": 1,
-				"price": 1.12,
-				"purchasePrice": 1.00,
-				"kind": "食品类",
+			self._info = {
+				"user" : "admin",
+				"time" : 1497704645.402168,
+				"action" : "进货",
+				"goodsName" : "",
+				"num" : "",
+				"total" : 10,
+				"isIncrease" : False,
 			}
 
 		# TODO  封装其他方法
 
 
-	def goodsInit(**kargs):
+	def infoInit(**kargs):
 		"""
 			初始化数据库
 			在安装的时候使用
 		"""
 
-		goods = {
-			"id": "0001",
-			"name": "Good1",
-			"amount": 1,
-			"price": 1.12,
-			"purchasePrice": 1.00,
-			"kind": "食品类",
+		info = {
+			"id" : "total",
+			"total" : 1000,
 		}
 		remodel.utils.create_tables()
-		Goods(**goods).save()
+		Info(**info).save()
 		return True
 
 	dbName = "warehouse"
